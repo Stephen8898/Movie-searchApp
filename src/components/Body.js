@@ -13,7 +13,7 @@ export default class Body extends Component {
    constructor(props){
      super(props)
       this.state ={
-        movieId:[],
+        movieId: 297802,
         poster: '',
         backDrop: '',
         title: '',
@@ -73,11 +73,12 @@ export default class Body extends Component {
          
           });
           console.log(temp)
-          const index =0
+          let num = 0
+          let index = num++
           this.giveId(temp,index)
 
           // console.log(ids)
-      //  this.findFilm()
+       this.findFilm()
           
       
     })
@@ -85,6 +86,9 @@ export default class Body extends Component {
 
   giveId(arr, index){{
     console.log(arr[index])
+    this.setState({
+      movieId: arr[index]
+    })
       return arr[index]
     }
   }
