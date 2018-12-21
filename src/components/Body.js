@@ -15,6 +15,8 @@ export default class Body extends Component {
      super(props)
       this.state ={
         movieId: 297802,
+        backdrop_path: '',
+        poster_path:'',
         poster: '',
         backDrop: '',
         title: '',
@@ -42,9 +44,18 @@ export default class Body extends Component {
     .then((data)=>{
         baseImgUrl = data.images.secure_base_url;
         configData = data.images;
+        let posterUrl = "".concat(baseImgUrl, configData.poster_sizes[3])
+        this.updateImage(posterUrl, this.state.backdrop_path)
         console.log('config: ', configData)
     })
    }
+   updateImage (ImageUrl, path){
+      this.setState({
+       backDrop: ImageUrl.concat(path),
+       poster: ImageUrl.concat(path)
+      })
+      console.log(this.state.backDrop)
+    }
    NowPlayingId(){
     let playingUrl = "".concat(baseUrl, 'movie/now_playing?', 'api_key=', 'fe14b848bd02d9c1c51451133c5153c2', '&language=en-US&page=1')
     fetch(playingUrl)
@@ -102,11 +113,14 @@ export default class Body extends Component {
         //  Object.keys(id).forEach(element => {
         //   console.log(element)
         // })
-      //   let posterPath = data.poster_path
-      //   // console.log(posterPath)
-      //  this.path(posterPath )
-      //   console.log(data)
+        let posterPath = data.poster_path
+        console.log(posterPath)
+        this.setState({
+           backdrop_path: posterPath 
+
+          })
     })
+    this.config()
   }
 
 
