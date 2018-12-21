@@ -1,74 +1,157 @@
 import React, { Component } from 'react'
-import {Jumbotron, FormControl,Grid, Row, Col, Image, Button, PageHeader } from 'react-bootstrap'
+import Nav from './Nav'
+import Carousel from './Carousel'
+import './styles/Body.css'
 
 let baseUrl = 'https://api.themoviedb.org/3/';
 let configData = null;
 let baseImgUrl = null;
 // let tvId = null;
 const API_KEY = process.env.REACT_APP_TMDB_KEY
+
 export default class Body extends Component {
-    constructor(props){
-        super(props)
-        this.state= {
-            search: ''
-        }
+   constructor(props){
+     super(props)
+      this.state ={
+        movieId:[],
+        poster: '',
+        backDrop: '',
+        title: '',
+        overview: ''
+
+      }
+
+     this.config = this.config.bind(this)
+     this.NowPlayingId = this.NowPlayingId.bind(this)
+     this.findFilm = this.findFilm.bind(this)
+     this.componentDidMount = this.componentDidMount.bind(this)
+   }
+
+   componentDidMount(){
+      this.config()
+      this.NowPlayingId()
+      this.findFilm()
+   }
+   config(){
+    let url = "".concat(baseUrl, 'configuration?', 'api_key=', API_KEY)
+    fetch(url)
+    .then((result) =>{
+       return result.json()
+    })
+    .then((data)=>{
+        baseImgUrl = data.images.secure_base_url;
+        configData = data.images;
+        console.log('config: ', configData)
+    })
+   }
+   NowPlayingId(){
+    let playingUrl = "".concat(baseUrl, 'movie/now_playing?', 'api_key=', 'fe14b848bd02d9c1c51451133c5153c2', '&language=en-US&page=1')
+    fetch(playingUrl)
+    .then((results) => {
       
-    }
- 
-    config = () => {
-        let url = "".concat(baseUrl, 'configuration?', 'api_key=', API_KEY)
-        fetch(url)
-        .then((result) =>{
-           return result.json()
-        })
-        .then((data)=>{
-            baseImgUrl = data.images.secure_base_url;
-            configData = data.images;
-            console.log('config: ', configData)
-        })
-    }
+      return results.json();
+    })
+    .then((json) =>{
+      return json.results;
+    })
+      .then((data)=>{
+        
+    
+      console.log(data);
+  
+      const res = data.map(movie => {
+        let temp = {}
+        temp.id = movie.id
+        // temp.title = movie.original_title
+        // temp.overview = movie.overview
+        // temp.poster = movie.poster_path
+        // temp.backDrop = movie.backdrop_path
+          return temp
+      })
+      this.findFilm(res)
+      this.setState({
+        NowPlayingInfo: res
+  
+      })
+      console.log(this.state.NowPlayingInfo);
+    })
+  }
+  findFilm(id){
+    let movieUrl = "".concat(baseUrl, `movie/${id}?`,'api_key=', API_KEY, '&language=en-US&query=') 
+    fetch(movieUrl)
+    .then((result) => { 
+        return result.json()
+    })
+    .then((data) => {
 
-    search = () => {
-        let searchUrl = "".concat(baseUrl, 'search/tv?', 'api_key=', API_KEY, '&language=en-US&query=', this.state.search)
-        fetch(searchUrl)
-        .then((result)=> {
-            return result.json()
-        })
-        .then((data)=> {
-              this.tvId = data.results.id
-            // console.log(data.results[0])
-            
-            
-        })
-    }
+      for(let i = 0; i <= 20; i++){
+        console.log(id[i])
+      }
+    
+        //  Object.keys(id).forEach(element => {
+        //   console.log(element)
+        // })
+      //   let posterPath = data.poster_path
+      //   // console.log(posterPath)
+      //  this.path(posterPath )
+      //   console.log(data)
+    })
+  }
 
-    tvFind = () =>{
-        let tvUrl = "".concat(baseUrl, `tv/${this.tvId}?`,'api_key=', API_KEY, '&language=en-US&query=') 
-        fetch(tvUrl)
-        .then((result) => { 
-            return result.json()
-        })
-        .then((data) => {
-            console.log(this.tvId)
-            console.log(data)
-        })
-    }
 
-    handleChange =(event)=>{
-        this.setState({search: event.target.value})
-        this.search()
-    }
-
-  render() {
-      const {search} = this.state;
+  render() {  
+      const { poster, backDrop, title, overview } = this.state;
     return (
-     <Grid>
-         <FormControl type="text" value={search} placeholder="search" onChange={this.handleChange}/>
-         <Row className="center">
-             <h1>Hello World</h1>
-         </Row>
-         <Button onClick={this.config}>Click</Button>
-     </Grid>
+        <React.Fragment>
+        <Nav/>
+        <Carousel poster={poster} title={title} backDrop={backDrop} overview={overview} />
+        <div className="container-fluid" style={{marginTop:''}}>
+        
+        {/* <div class="input-group input-group-sm mb-3">
+          {/* <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default"></span>
+          </div> */}
+          {/* <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+        <pre></pre>
+        </div> */} 
+  
+          <div className="container">
+            <div className="row">
+              <div className="col" style={{border:"2px solid  black"}}>
+                <div className="row justify-content-center">
+                  {/* <div className="col-lg">
+                    <input type="text"/>
+                  </div> */}
+                </div>
+                <div className="row ">
+                <div></div>
+                  <img width="342px" src="/assets/PicNum1.jpg" alt="Test Pic"/>
+              
+                {/* <hr style={{margin:"0px"}}/> */}
+                {/* <div className="row"> */}
+                  <div className="col-5">
+                    <h3>Star wars</h3>
+                    <p>We artists are a different breed of people. We're a happy bunch. 
+                      If you hypnotize it, it will go away. Get away from those little Christmas tree
+                      things we used to make in school. The only prerequisite is that it makes you happy. 
+                      If it makes you happy then it's good. This is gonna be a happy little seascape.
+                      Let's put some happy trees and bushes back in here.</p>
+                  </div>
+                  {/* <div className="col-4"> */}
+                    <h4>Release Date: 06/07/08</h4>
+                  
+                  {/* </div> */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">           
+                     {/* <input type="text" value={""} placeholder="search" onChange={this.handleChange}/> */}
+                  </div>  
+                      <h1>Hello World</h1>
+                  <button onClick={this.NowPlayingId}>Click</button>
+      </React.Fragment>
     )
   }
 }

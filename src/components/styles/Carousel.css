@@ -1,0 +1,11 @@
+.container{
+    font-size: 13px;
+}
+.backgroundImg{
+position: absolute;
+left:0;
+/* z-index: -1; */
+height: 15rem;
+width: 100%;
+display: block;
+}
