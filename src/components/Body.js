@@ -7,6 +7,7 @@ let baseUrl = 'https://api.themoviedb.org/3/';
 let configData = null;
 let baseImgUrl = null;
 // let tvId = null;
+let num = 0
 const API_KEY = process.env.REACT_APP_TMDB_KEY
 
 export default class Body extends Component {
@@ -69,11 +70,8 @@ export default class Body extends Component {
           res.forEach((element, index) => {
            temp.push(element.id)
 
-          
-         
           });
           console.log(temp)
-          let num = 0
           let index = num++
           this.giveId(temp,index)
 
