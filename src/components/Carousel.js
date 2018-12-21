@@ -6,14 +6,14 @@ let baseUrl = 'https://api.themoviedb.org/3/';
 let configData = null;
 let baseImgUrl = null;
 // let tvId = null;
-let num = 0
+// let num = 0
 const API_KEY = process.env.REACT_APP_TMDB_KEY
 
 export default class Carousel extends Component {
    constructor(props){
      super(props)
       this.state ={
-        movieId: "",
+        movieId: 297802,
         backdrop_path: '',
         poster_path:'',
         poster: '',
@@ -75,34 +75,24 @@ export default class Carousel extends Component {
           let temp = []
           res.forEach((element) => {
            temp.push(element.id)
-
           });
-          let index = num++
-          this.giveId(temp,index)
+          let index = Math.floor(Math.random() * 25) 
+            console.log(index)
+            this.giveId(temp,index)
 
-          // console.log(ids)
-          this.findFilm()
-      window.setInterval(this.NowPlayingId, 40000)
-          
-      
+            this.findFilm()
+     
+            window.setInterval(this.NowPlayingId, 40050)
     })
   }
 
-prev = () =>{
-  num++
-  
-}
 
-next = () =>{
-
-}
-
-  giveId(arr, index){{
+  giveId(arr, index){
     this.setState({
       movieId: arr[index]
     })
+    console.log(index)
       return arr[index]
-    }
   }
 
   findFilm(){
@@ -125,12 +115,13 @@ next = () =>{
 
           })
     })
+  
     this.config()
     
   }
 
 
-    
+     
 
   render() {
     document.addEventListener("DOMContentLoaded", this)
@@ -158,7 +149,7 @@ next = () =>{
                           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                           <span className="sr-only">Previous</span>
                         </a>
-                        <a className="carousel-control-next" onClick={this.next} role="button" data-slide="next">
+                        <a className="carousel-control-next" onClick={this.giveId} role="button" data-slide="next">
                           <span className="carousel-control-next-icon" aria-hidden="true"></span>
                           <span className="sr-only">Next</span>
                         </a>

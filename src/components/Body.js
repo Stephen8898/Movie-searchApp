@@ -53,26 +53,23 @@ export default class Body extends Component {
       }
 
     film(){
-      let movieUrl = "".concat(baseUrl, `movie/${this.state.movieId}?`,'api_key=', API_KEY, '&language=en-US&query=') 
+      let movieUrl = "".concat(baseUrl, `movie/popular?`,'api_key=', API_KEY, '&language=en-US&page=1') 
     fetch(movieUrl)
-    .then((result) => { 
-        return result.json()
+    .then((results) => {
+      
+      return results.json();
     })
-    .then((data) => {
-      console.log(data)
-        //  Object.keys(id).forEach(element => {
-        //   console.log(element)
-        // })
-        let posterPath = data.poster_path
-        let backDropPath = data.backdrop_path
-        console.log(posterPath)
-        this.setState({
-           backdrop_path: backDropPath,
-           poster_path: posterPath,
-           title: data.original_title,
-           overview: data.overview
-
-          })
+    .then((json) =>{
+      return json.results;
+    })
+      .then((data)=>{
+      
+      const res = data.map(movie => {
+        let temp = {}
+        temp.id = movie.id
+          return temp
+      })
+          console.log(res)
     })
     // this.config()
     
@@ -83,7 +80,7 @@ export default class Body extends Component {
           this.search()
       }
   render() {  
-    const {search} = this.state
+    const {search, poster, title,overview, link} = this.state
       // document.addEventListener("DOMContentLoaded", this.init);
       return (
         <React.Fragment>
@@ -104,19 +101,31 @@ export default class Body extends Component {
                   {/* <div className="col-lg">
                     <input type="text"/>
                   </div> */}
+            
                 </div>
                   <div className="row" style={{color:'#ffff'}}>
-                    <h3>Search for a Movie</h3>
-                    <input type="text" value={search} onChange={this.handleChange} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-                    <p>We artists are a different breed of people. We're a happy bunch. 
+                    <h3>Popular Movies</h3>
+                    </div>
+                    {/* <input type="text" value={search} onChange={this.handleChange} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> */}
+                    {/* <p>We artists are a different breed of people. We're a happy bunch.  
                       If you hypnotize it, it will go away. Get away from those little Christmas tree
                       things we used to make in school. The only prerequisite is that it makes you happy. 
                       If it makes you happy then it's good. This is gonna be a happy little seascape.
                       Let's put some happy trees and bushes back in here.</p>
-                  </div>
-              </div>
+                  </div> */}
+                  <div className="row" style={{marginTop:'5rem', marginBottom:'5rem'}}>
+                  <div className="card" style={{width: '18rem'}}>
+                      <img className="card-img-top" src=".../100px180/" alt="Card image cap"/>
+                      <div className="card-body">
+                        <h5 className="card-title">Card title</h5>
+                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" className="btn btn-primary">Go somewhere</a>
+                      </div>
+                 </div>
+              </div>  
             </div>
           </div>
+        </div>
         {/* </div> */}
       </React.Fragment>
     )
