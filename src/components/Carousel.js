@@ -82,7 +82,7 @@ export default class Carousel extends Component {
 
           // console.log(ids)
           this.findFilm()
-      window.setInterval(this.NowPlayingId, 100000)
+      window.setInterval(this.NowPlayingId, 40000)
           
       
     })
@@ -133,7 +133,7 @@ next = () =>{
     
 
   render() {
-    document.addEventListener("DOMContentLoaded", this.NowPlayingId)
+    document.addEventListener("DOMContentLoaded", this)
     const { poster, backDrop, title, overview } = this.state;
     return (
         <React.Fragment>
