@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Body from './Body'
 import './styles/Carousel.css'
 
 let baseUrl = 'https://api.themoviedb.org/3/';
@@ -18,7 +19,7 @@ export default class Carousel extends Component {
         poster: '',
         backDrop: '',
         title: '',
-        overview: ''
+        overview: '',
 
       }
 
@@ -134,6 +135,8 @@ next = () =>{
     
   }
 
+  
+
   init(){
     window.setInterval(this.findFilm, 1000)
   }
@@ -173,6 +176,7 @@ next = () =>{
               </div>
             </div>
           </div>
+          <Body/>
           </React.Fragment>
     )
   }

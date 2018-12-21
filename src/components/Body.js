@@ -3,17 +3,58 @@ import Nav from './Nav'
 import Carousel from './Carousel'
 import './styles/Body.css'
 
+let baseUrl = 'https://api.themoviedb.org/3/';
+let configData = null;
+let baseImgUrl = null;
+// let tvId = null;
+let num = 0
+const API_KEY = process.env.REACT_APP_TMDB_KEY
 
 export default class Body extends Component {
+   constructor(props){
+     super(props)
+      this.state ={
+        // movieId: 297802,
+        backdrop_path: '',
+        poster_path:'',
+        poster: '',
+        backDrop: '',
+        title: '',
+        overview: '',
+        search:''
+      }
 
+      this.search = this.search.bind(this)
+      this.searchFilm = this.search.bind(this)
+      this.componentDidMount = this.componentDidMount.bind(this)
+    }
+    componentDidMount(){
+      this.search()
+      this.searchFilm()
+    }
+      search(){
+        let searchUrl = "".concat(baseUrl, 'search/movie?', 'api_key=', API_KEY, '&language=en-US&query=', this.state.search)
+        fetch(searchUrl)
+        .then((result) => {
+          return result.json()
+        })
+        .then((json)=>{
+          console.log(json)
+        })
+      }
 
+    searchFilm(){
+
+    }
+    handleChange =(event)=>{
+          this.setState({search: event.target.value})
+          this.search()
+      }
   render() {  
-
+    const {search} = this.state
       // document.addEventListener("DOMContentLoaded", this.init);
       return (
         <React.Fragment>
-        <Nav/>
-        <Carousel/>
         <div className="container-fluid" style={{marginTop:'20%', backgroundImage:"url(assets/darkBackgd.jpg)"}}>
         
         {/* <div class="input-group input-group-sm mb-3">
@@ -33,7 +74,8 @@ export default class Body extends Component {
                   </div> */}
                 </div>
                   <div className="row" style={{color:'#ffff'}}>
-                    <h3></h3>
+                    <h3>Search for a Movie</h3>
+                    <input type="text" value={search} onChange={this.handleChange} class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
                     <p>We artists are a different breed of people. We're a happy bunch. 
                       If you hypnotize it, it will go away. Get away from those little Christmas tree
                       things we used to make in school. The only prerequisite is that it makes you happy. 

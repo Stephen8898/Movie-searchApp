@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Switch, } from 'react-router-dom'
 import About from './components/About'
-import Body from './components/Body'
+import Nav from './components/Nav'
+import Carousel from './components/Carousel'
 import Footer from './components/Footer'
 import './App.css';
 
@@ -19,7 +20,8 @@ class App extends Component {
           </div>
           <a href="#about">About</a>
           </div> */}
-          <Body/>
+          <Nav/>
+        <Carousel/>
         <Footer/>
         </div>
       </React.Fragment>
