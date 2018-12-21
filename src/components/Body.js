@@ -55,10 +55,7 @@ export default class Body extends Component {
       return json.results;
     })
       .then((data)=>{
-        
-    
-      console.log(data);
-  
+      
       const res = data.map(movie => {
         let temp = {}
         temp.id = movie.id
@@ -68,26 +65,38 @@ export default class Body extends Component {
         // temp.backDrop = movie.backdrop_path
           return temp
       })
-      this.findFilm(res)
-      this.setState({
-        NowPlayingInfo: res
-  
-      })
-      console.log(this.state.NowPlayingInfo);
+          let temp = []
+          res.forEach((element, index) => {
+           temp.push(element.id)
+
+          
+         
+          });
+          console.log(temp)
+          const index =0
+          this.giveId(temp,index)
+
+          // console.log(ids)
+      //  this.findFilm()
+          
+      
     })
   }
-  findFilm(id){
-    let movieUrl = "".concat(baseUrl, `movie/${id}?`,'api_key=', API_KEY, '&language=en-US&query=') 
+
+  giveId(arr, index){{
+    console.log(arr[index])
+      return arr[index]
+    }
+  }
+
+  findFilm(){
+    let movieUrl = "".concat(baseUrl, `movie/${this.state.movieId}?`,'api_key=', API_KEY, '&language=en-US&query=') 
     fetch(movieUrl)
     .then((result) => { 
         return result.json()
     })
     .then((data) => {
-
-      for(let i = 0; i <= 20; i++){
-        console.log(id[i])
-      }
-    
+      console.log(data)
         //  Object.keys(id).forEach(element => {
         //   console.log(element)
         // })
