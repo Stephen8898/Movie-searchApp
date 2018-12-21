@@ -27,6 +27,7 @@ export default class Body extends Component {
      this.config = this.config.bind(this)
      this.NowPlayingId = this.NowPlayingId.bind(this)
      this.findFilm = this.findFilm.bind(this)
+    //  this.init = this.init.bind(this)
      this.componentDidMount = this.componentDidMount.bind(this)
    }
 
@@ -34,6 +35,7 @@ export default class Body extends Component {
       this.config()
       this.NowPlayingId()
       this.findFilm()
+      
    }
    config(){
     let url = "".concat(baseUrl, 'configuration?', 'api_key=', API_KEY)
@@ -45,14 +47,15 @@ export default class Body extends Component {
         baseImgUrl = data.images.secure_base_url;
         configData = data.images;
         let posterUrl = "".concat(baseImgUrl, configData.poster_sizes[3])
-        this.updateImage(posterUrl, this.state.backdrop_path)
+        let backDropUrl = "".concat(baseImgUrl, configData.backdrop_sizes[3])
+        this.updateImage(posterUrl,backDropUrl ,this.state.poster_path,this.state.backdrop_path)
         console.log('config: ', configData)
     })
    }
-   updateImage (ImageUrl, path){
+   updateImage (posterUrl, backDropUrl,posterPath, backDropPath){
       this.setState({
-       backDrop: ImageUrl.concat(path),
-       poster: ImageUrl.concat(path)
+       backDrop: backDropUrl.concat(backDropPath),
+       poster: posterUrl.concat(posterPath)
       })
       console.log(this.state.backDrop)
     }
@@ -71,14 +74,10 @@ export default class Body extends Component {
       const res = data.map(movie => {
         let temp = {}
         temp.id = movie.id
-        // temp.title = movie.original_title
-        // temp.overview = movie.overview
-        // temp.poster = movie.poster_path
-        // temp.backDrop = movie.backdrop_path
           return temp
       })
           let temp = []
-          res.forEach((element, index) => {
+          res.forEach((element) => {
            temp.push(element.id)
 
           });
@@ -114,19 +113,29 @@ export default class Body extends Component {
         //   console.log(element)
         // })
         let posterPath = data.poster_path
+        let backDropPath = data.backdrop_path
         console.log(posterPath)
         this.setState({
-           backdrop_path: posterPath 
+           backdrop_path: backDropPath,
+           poster_path: posterPath,
+           title: data.original_title,
+           overview: data.overview
 
           })
     })
     this.config()
+    
   }
 
+  init(){
+    window.setInterval(this.findFilm, 1000)
+  }
+    
 
   render() {  
       const { poster, backDrop, title, overview } = this.state;
-    return (
+      // document.addEventListener("DOMContentLoaded", this.init);
+      return (
         <React.Fragment>
         <Nav/>
         <Carousel poster={poster} title={title} backDrop={backDrop} overview={overview} />
