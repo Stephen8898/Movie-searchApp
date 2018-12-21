@@ -13,7 +13,7 @@ export default class Carousel extends Component {
    constructor(props){
      super(props)
       this.state ={
-        movieId: 297802,
+        movieId: "",
         backdrop_path: '',
         poster_path:'',
         poster: '',
@@ -26,7 +26,6 @@ export default class Carousel extends Component {
      this.config = this.config.bind(this)
      this.NowPlayingId = this.NowPlayingId.bind(this)
      this.findFilm = this.findFilm.bind(this)
-    //  this.init = this.init.bind(this)
      this.componentDidMount = this.componentDidMount.bind(this)
    }
 
@@ -48,7 +47,6 @@ export default class Carousel extends Component {
         let posterUrl = "".concat(baseImgUrl, configData.poster_sizes[3])
         let backDropUrl = "".concat(baseImgUrl, configData.backdrop_sizes[3])
         this.updateImage(posterUrl,backDropUrl ,this.state.poster_path,this.state.backdrop_path)
-        console.log('config: ', configData)
     })
    }
    updateImage (posterUrl, backDropUrl,posterPath, backDropPath){
@@ -56,7 +54,6 @@ export default class Carousel extends Component {
        backDrop: backDropUrl.concat(backDropPath),
        poster: posterUrl.concat(posterPath)
       })
-      console.log(this.state.backDrop)
     }
    NowPlayingId(){
     let playingUrl = "".concat(baseUrl, 'movie/now_playing?', 'api_key=', 'fe14b848bd02d9c1c51451133c5153c2', '&language=en-US&page=1')
@@ -80,12 +77,12 @@ export default class Carousel extends Component {
            temp.push(element.id)
 
           });
-          console.log(temp)
           let index = num++
           this.giveId(temp,index)
 
           // console.log(ids)
-       this.findFilm()
+          this.findFilm()
+      window.setInterval(this.NowPlayingId, 100000)
           
       
     })
@@ -101,7 +98,6 @@ next = () =>{
 }
 
   giveId(arr, index){{
-    console.log(arr[index])
     this.setState({
       movieId: arr[index]
     })
@@ -116,13 +112,11 @@ next = () =>{
         return result.json()
     })
     .then((data) => {
-      console.log(data)
         //  Object.keys(id).forEach(element => {
         //   console.log(element)
         // })
         let posterPath = data.poster_path
         let backDropPath = data.backdrop_path
-        console.log(posterPath)
         this.setState({
            backdrop_path: backDropPath,
            poster_path: posterPath,
@@ -135,14 +129,11 @@ next = () =>{
     
   }
 
-  
 
-  init(){
-    window.setInterval(this.findFilm, 1000)
-  }
     
 
   render() {
+    document.addEventListener("DOMContentLoaded", this.NowPlayingId)
     const { poster, backDrop, title, overview } = this.state;
     return (
         <React.Fragment>

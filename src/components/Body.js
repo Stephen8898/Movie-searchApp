@@ -25,27 +25,59 @@ export default class Body extends Component {
       }
 
       this.search = this.search.bind(this)
-      this.searchFilm = this.search.bind(this)
+      this.film = this.film.bind(this)
       this.componentDidMount = this.componentDidMount.bind(this)
     }
     componentDidMount(){
       this.search()
-      this.searchFilm()
+      this.film()
     }
       search(){
         let searchUrl = "".concat(baseUrl, 'search/movie?', 'api_key=', API_KEY, '&language=en-US&query=', this.state.search)
         fetch(searchUrl)
-        .then((result) => {
-          return result.json()
+        .then((results) => {
+          return results.json()
         })
         .then((json)=>{
-          console.log(json)
+          return json.results
+        })
+        .then((data) =>{
+          console.log(data)
+          // const res = data.map(movie => {
+          // //   let temp = {}
+          // //   temp.id = movie.id
+          // //     return temp
+          // })
+          // console.log(res)
         })
       }
 
-    searchFilm(){
+    film(){
+      let movieUrl = "".concat(baseUrl, `movie/${this.state.movieId}?`,'api_key=', API_KEY, '&language=en-US&query=') 
+    fetch(movieUrl)
+    .then((result) => { 
+        return result.json()
+    })
+    .then((data) => {
+      console.log(data)
+        //  Object.keys(id).forEach(element => {
+        //   console.log(element)
+        // })
+        let posterPath = data.poster_path
+        let backDropPath = data.backdrop_path
+        console.log(posterPath)
+        this.setState({
+           backdrop_path: backDropPath,
+           poster_path: posterPath,
+           title: data.original_title,
+           overview: data.overview
 
-    }
+          })
+    })
+    // this.config()
+    
+   }
+
     handleChange =(event)=>{
           this.setState({search: event.target.value})
           this.search()
@@ -55,7 +87,7 @@ export default class Body extends Component {
       // document.addEventListener("DOMContentLoaded", this.init);
       return (
         <React.Fragment>
-        <div className="container-fluid" style={{marginTop:'20%', backgroundImage:"url(assets/darkBackgd.jpg)"}}>
+        <div className="container-fluid" style={{marginTop:'20%',marginBottom:'10%', backgroundImage:"url(assets/darkBackgd.jpg)"}}>
         
         {/* <div class="input-group input-group-sm mb-3">
           {/* <div class="input-group-prepend">
@@ -75,7 +107,7 @@ export default class Body extends Component {
                 </div>
                   <div className="row" style={{color:'#ffff'}}>
                     <h3>Search for a Movie</h3>
-                    <input type="text" value={search} onChange={this.handleChange} class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+                    <input type="text" value={search} onChange={this.handleChange} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
                     <p>We artists are a different breed of people. We're a happy bunch. 
                       If you hypnotize it, it will go away. Get away from those little Christmas tree
                       things we used to make in school. The only prerequisite is that it makes you happy. 
@@ -86,11 +118,6 @@ export default class Body extends Component {
             </div>
           </div>
         {/* </div> */}
-        <div className="row">           
-                     {/* <input type="text" value={""} placeholder="search" onChange={this.handleChange}/> */}
-                  </div>  
-                      <h1>Hello World</h1>
-                  <button onClick={this.NowPlayingId}>Click</button>
       </React.Fragment>
     )
   }
