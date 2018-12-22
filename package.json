@@ -31,15 +31,5 @@
   "main": "index.js",
   "devDependencies": {
     "gh-pages": "^2.0.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Stephen8898/Project2-WebDev.git"
-  },
-  "author": "Stephen",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Stephen8898/Project2-WebDev/issues"
-  },
-  "homepage": "https://github.com/Stephen8898/Project2-WebDev#readme"
+  }
 }
