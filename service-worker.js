@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/Stephen8898/Project2-WebDev/precache-manifest.871ae7f2b0174eeb7a75dae69d85e33b.js"
+  "/Movie-searchApp/precache-manifest.411a4d2312d9f38e369836b9daa05303.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/Stephen8898/Project2-WebDev/index.html", {
+workbox.routing.registerNavigationRoute("/Movie-searchApp/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
