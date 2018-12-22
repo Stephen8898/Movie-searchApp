@@ -77,7 +77,10 @@ export default class Carousel extends Component {
            temp.push(element.id)
           });
           let index = Math.floor(Math.random() * 25) 
-            this.giveId(temp,index)
+            // this.giveId(temp,index)
+            this.setState({
+              movieId: temp[index]
+            })
 
             this.findFilm()
      
@@ -86,13 +89,13 @@ export default class Carousel extends Component {
   }
 
 
-  giveId(arr, index){
-    this.setState({
-      movieId: arr[index]
-    })
+  // giveId(arr, index){
+  //   this.setState({
+  //     movieId: arr[index]
+  //   })
 
-      return arr[index]
-  }
+  //     return arr[index]
+  // }
 
   findFilm(){
     let movieUrl = "".concat(baseUrl, `movie/${this.state.movieId}?`,'api_key=', API_KEY, '&language=en-US&query=') 

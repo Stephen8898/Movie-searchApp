@@ -101,7 +101,7 @@ export default class Body extends Component {
             
                 </div>
                   <div className="row" style={{color:'#ffff'}}>
-                    <h3>Popular Movies</h3>
+                    <h3>Now Playing</h3>
                     </div>
                     {/* <input type="text" value={search} onChange={this.handleChange} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> */}
                     {/* <p>We artists are a different breed of people. We're a happy bunch.  
