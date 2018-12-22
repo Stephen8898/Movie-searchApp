@@ -77,7 +77,6 @@ export default class Carousel extends Component {
            temp.push(element.id)
           });
           let index = Math.floor(Math.random() * 25) 
-            console.log(index)
             this.giveId(temp,index)
 
             this.findFilm()
@@ -91,7 +90,7 @@ export default class Carousel extends Component {
     this.setState({
       movieId: arr[index]
     })
-    console.log(index)
+
       return arr[index]
   }
 
