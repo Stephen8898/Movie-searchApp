@@ -12,19 +12,17 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <div className="background" style={{backgroundImage: `url(assets/background-flash.gif)`, backgroundPosition:'center', backgroundRepeat:'no-repeat', backgroundSize:'cover', backgroundAttachment:'fixed',height:'100%'}}>
-        {/* <div class="sidenav">
-          <div className="logo">
-           <img src="/assets/Tmdb-logo.png"></img>
-          </div>
-          <a href="#about">About</a>
-          </div> */}
-          <Nav/>
-        <Carousel/>
+      <Router>
+     <div className="background" style={{backgroundImage: `url(assets/background-flash.gif)`, backgroundPosition:'center', backgroundRepeat:'no-repeat', backgroundSize:'cover', backgroundAttachment:'fixed',height:'100%'}}>
+      <Nav/>
+      <Switch>
+        {/* <div className="background" style={{backgroundImage: `url(assets/background-flash.gif)`, backgroundPosition:'center', backgroundRepeat:'no-repeat', backgroundSize:'cover', backgroundAttachment:'fixed',height:'100%'}}></div> */}
+        <Route exact path="/" component={Carousel}/>
+        <Route path="/about" component={About}/>
+        </Switch>
         <Footer/>
         </div>
-      </React.Fragment>
+      </Router>
     );
   }
 }

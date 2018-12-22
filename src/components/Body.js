@@ -18,39 +18,35 @@ export default class Body extends Component {
         backdrop_path: '',
         poster_path:'',
         poster: '',
-        backDrop: '',
         title: '',
-        overview: '',
-        search:''
+        overview: ''
       }
 
-      this.search = this.search.bind(this)
       this.film = this.film.bind(this)
       this.componentDidMount = this.componentDidMount.bind(this)
     }
     componentDidMount(){
-      this.search()
       this.film()
     }
-      search(){
-        let searchUrl = "".concat(baseUrl, 'search/movie?', 'api_key=', API_KEY, '&language=en-US&query=', this.state.search)
-        fetch(searchUrl)
-        .then((results) => {
-          return results.json()
-        })
-        .then((json)=>{
-          return json.results
-        })
-        .then((data) =>{
-          console.log(data)
-          // const res = data.map(movie => {
-          // //   let temp = {}
-          // //   temp.id = movie.id
-          // //     return temp
-          // })
-          // console.log(res)
-        })
-      }
+      // search(){
+      //   let searchUrl = "".concat(baseUrl, 'search/movie?', 'api_key=', API_KEY, '&language=en-US&query=', this.state.search)
+      //   fetch(searchUrl)
+      //   .then((results) => {
+      //     return results.json()
+      //   })
+      //   .then((json)=>{
+      //     return json.results
+      //   })
+      //   .then((data) =>{
+      //     console.log(data)
+      //     // const res = data.map(movie => {
+      //     // //   let temp = {}
+      //     // //   temp.id = movie.id
+      //     // //     return temp
+      //     // })
+      //     // console.log(res)
+      //   })
+      // }
 
     film(){
       let movieUrl = "".concat(baseUrl, `movie/popular?`,'api_key=', API_KEY, '&language=en-US&page=1') 
@@ -66,13 +62,14 @@ export default class Body extends Component {
       
       const res = data.map(movie => {
         let temp = {}
-        temp.id = movie.id
+        // temp.id = movie.id
+        temp.title = movie.original_title
+        temp.overview = movie.overview
+        temp.poster = movie.poster_path
           return temp
       })
-          console.log(res)
+      
     })
-    // this.config()
-    
    }
 
     handleChange =(event)=>{
@@ -84,8 +81,8 @@ export default class Body extends Component {
       // document.addEventListener("DOMContentLoaded", this.init);
       return (
         <React.Fragment>
-        <div className="container-fluid" style={{marginTop:'20%',marginBottom:'10%', backgroundImage:"url(assets/darkBackgd.jpg)"}}>
-        
+        <div className="container-fluid" style={{marginTop:'20%',marginBottom:'10%', backgroundImage:"url(assets/darkBackgd.jpg)" } } onMouseOver={this.film}>
+      
         {/* <div class="input-group input-group-sm mb-3">
           {/* <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default"></span>
@@ -113,15 +110,15 @@ export default class Body extends Component {
                       If it makes you happy then it's good. This is gonna be a happy little seascape.
                       Let's put some happy trees and bushes back in here.</p>
                   </div> */}
-                  <div className="row" style={{marginTop:'5rem', marginBottom:'5rem'}}>
-                  <div className="card" style={{width: '18rem'}}>
-                      <img className="card-img-top" src=".../100px180/" alt="Card image cap"/>
-                      <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" className="btn btn-primary">Go somewhere</a>
+                  <div className="row justify-content-center" style={{marginTop:'5rem', marginBottom:'5rem'}}>
+                  {/* <div className="card " style={{width: '18rem'}}> */}
+                      <img className="col-6" src={this.props.poster} alt="Card image cap"/>
+                      <div className="card-body" style={{backgroundColor:'#fff'}}>
+                        <h5 className="card-title">{this.props.title}</h5>
+                        <p className="card-text">{this.props.overview}</p>
+                        <a href={this.props.site} target="_blank" className="btn btn-primary">Go somewhere</a>
                       </div>
-                 </div>
+                 {/* </div> */}
               </div>  
             </div>
           </div>

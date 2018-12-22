@@ -20,7 +20,7 @@ export default class Carousel extends Component {
         backDrop: '',
         title: '',
         overview: '',
-
+        site:''
       }
 
      this.config = this.config.bind(this)
@@ -111,8 +111,8 @@ export default class Carousel extends Component {
            backdrop_path: backDropPath,
            poster_path: posterPath,
            title: data.original_title,
-           overview: data.overview
-
+           overview: data.overview,
+          site: data.homepage
           })
     })
   
@@ -125,7 +125,7 @@ export default class Carousel extends Component {
 
   render() {
     document.addEventListener("DOMContentLoaded", this)
-    const { poster, backDrop, title, overview } = this.state;
+    const { poster, backDrop, title, overview, site } = this.state;
     return (
         <React.Fragment>
         {/* <div className="backgroundImg" style={{backgroundColor:'grey', backgroundImage: `url(${this.props.backDrop})`, backgroundRepeat:'no-repeat', backgroundSize:'cover', filter:'blur(8px)'}}></div> */}
@@ -158,7 +158,7 @@ export default class Carousel extends Component {
               </div>
             </div>
           </div>
-          <Body/>
+          <Body title={title} overview={overview} poster={poster} site={site}/>
           </React.Fragment>
     )
   }
