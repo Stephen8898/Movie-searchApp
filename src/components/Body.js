@@ -81,7 +81,7 @@ export default class Body extends Component {
       // document.addEventListener("DOMContentLoaded", this.init);
       return (
         <React.Fragment>
-        <div className="container-fluid" style={{marginTop:'20%',marginBottom:'10%', backgroundImage:"url(assets/darkBackgd.jpg)" } } onMouseOver={this.film}>
+        <div className="container-fluid" style={{marginTop:'10%',marginBottom:'10%', backgroundImage:"url(assets/darkBackgd.jpg)" } } onMouseOver={this.film}>
       
         {/* <div class="input-group input-group-sm mb-3">
           {/* <div class="input-group-prepend">
@@ -110,7 +110,7 @@ export default class Body extends Component {
                       If it makes you happy then it's good. This is gonna be a happy little seascape.
                       Let's put some happy trees and bushes back in here.</p>
                   </div> */}
-                  <div className="row justify-content-center" style={{marginTop:'5rem', marginBottom:'5rem'}}>
+                  <div className="row justify-content-center" style={{marginTop:'2rem', marginBottom:'2rem'}}>
                   {/* <div className="card " style={{width: '18rem'}}> */}
                       <img className="col-6" src={this.props.poster} alt="Card image cap"/>
                       <div className="card-body" style={{backgroundColor:'#fff'}}>
